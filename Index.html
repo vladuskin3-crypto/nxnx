@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Shop</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header-left">
+        <button id="btn-back" class="icon-btn hidden" aria-label="Back">←</button>
+        <h1 id="page-title">Магазин</h1>
+      </div>
+      <div class="balance-pill" id="balance-pill">
+        <span id="balance-text">—</span>
+      </div>
+    </header>
+
+    <!-- SCREENS -->
+    <main id="screens">
+      <!-- HOME / CATALOG -->
+      <section id="screen-home" class="screen active">
+        <div class="hero">
+          <div class="hero-title" id="shop-name">Shop</div>
+          <div class="hero-sub">Цифровые товары · мгновенная выдача</div>
+        </div>
+        <div class="nav-grid">
+          <button class="nav-card" data-go="catalog">
+            <span class="nav-icon">🛍</span>
+            <span>Каталог</span>
+          </button>
+          <button class="nav-card" data-go="profile">
+            <span class="nav-icon">👤</span>
+            <span>Профиль</span>
+          </button>
+          <button class="nav-card" data-go="orders">
+            <span class="nav-icon">🧾</span>
+            <span>Покупки</span>
+          </button>
+          <button class="nav-card" data-go="reviews">
+            <span class="nav-icon">⭐</span>
+            <span>Отзывы</span>
+          </button>
+          <button class="nav-card" data-go="info">
+            <span class="nav-icon">📜</span>
+            <span>Правила</span>
+          </button>
+          <button class="nav-card" data-go="support">
+            <span class="nav-icon">🆘</span>
+            <span>Поддержка</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- CATALOG: sections -->
+      <section id="screen-catalog" class="screen">
+        <div id="sections-list" class="list"></div>
+        <div id="catalog-empty" class="empty hidden">Пока нет разделов</div>
+      </section>
+
+      <!-- PRODUCTS in section -->
+      <section id="screen-products" class="screen">
+        <div id="products-list" class="list"></div>
+        <div id="products-empty" class="empty hidden">В этом разделе пока пусто</div>
+      </section>
+
+      <!-- PRODUCT DETAIL -->
+      <section id="screen-product" class="screen">
+        <div class="card product-card">
+          <h2 id="prod-name"></h2>
+          <p id="prod-descr" class="muted"></p>
+          <div class="row between">
+            <div>
+              <div class="label">Цена</div>
+              <div id="prod-price" class="price"></div>
+            </div>
+            <div class="right">
+              <div class="label">В наличии</div>
+              <div id="prod-stock"></div>
+            </div>
+          </div>
+          <button id="btn-buy" class="btn primary full">🛒 Купить</button>
+          <div id="buy-error" class="error hidden"></div>
+        </div>
+      </section>
+
+      <!-- BUY SUCCESS -->
+      <section id="screen-success" class="screen">
+        <div class="card success-card">
+          <div class="success-icon">✅</div>
+          <h2>Покупка успешна!</h2>
+          <p id="success-name" class="muted"></p>
+          <div class="content-box">
+            <div class="label">Ваш товар</div>
+            <pre id="success-content"></pre>
+            <button id="btn-copy" class="btn secondary full">📋 Копировать</button>
+          </div>
+          <button id="btn-to-home" class="btn primary full">В каталог</button>
+        </div>
+      </section>
+
+      <!-- PROFILE -->
+      <section id="screen-profile" class="screen">
+        <div class="card">
+          <div class="profile-name" id="prof-name">—</div>
+          <div class="muted" id="prof-id"></div>
+          <div class="stat-row">
+            <div class="stat">
+              <div class="stat-val" id="prof-bal">—</div>
+              <div class="stat-label">Баланс</div>
+            </div>
+            <div class="stat">
+              <div class="stat-val" id="prof-orders">0</div>
+              <div class="stat-label">Покупок</div>
+            </div>
+          </div>
+          <p class="muted small">Пополнить баланс можно в боте через кнопку «Профиль → Пополнить».</p>
+          <button class="btn secondary full" id="btn-open-bot">Открыть бота</button>
+        </div>
+      </section>
+
+      <!-- ORDERS -->
+      <section id="screen-orders" class="screen">
+        <div id="orders-list" class="list"></div>
+        <div id="orders-empty" class="empty hidden">Покупок пока нет</div>
+      </section>
+
+      <!-- REVIEWS -->
+      <section id="screen-reviews" class="screen">
+        <div id="reviews-list" class="list"></div>
+        <div id="reviews-empty" class="empty hidden">Отзывов пока нет</div>
+      </section>
+
+      <!-- INFO / RULES -->
+      <section id="screen-info" class="screen">
+        <div class="card">
+          <h2>📜 Правила</h2>
+          <pre id="rules-text" class="text-block"></pre>
+          <h2 style="margin-top:1.2rem">❓ FAQ</h2>
+          <pre id="faq-text" class="text-block"></pre>
+        </div>
+      </section>
+
+      <!-- SUPPORT -->
+      <section id="screen-support" class="screen">
+        <div class="card center">
+          <div class="big-icon">🆘</div>
+          <h2>Поддержка</h2>
+          <p class="muted">Напишите нам</p>
+          <a id="support-link" class="btn primary" href="#" target="_blank">Написать</a>
+        </div>
+      </section>
+    </main>
+
+    <div id="toast" class="toast hidden"></div>
+    <div id="loader" class="loader hidden"><div class="spinner"></div></div>
+  </div>
+  <script src="/static/app.js"></script>
+</body>
+</html>
