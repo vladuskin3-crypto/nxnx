@@ -26,11 +26,11 @@ from aiogram.types import CallbackQuery, FSInputFile, InlineKeyboardButton, Mess
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 # ======================= НАСТРОЙКИ =======================
-BOT_TOKEN = os.getenv("BOT_TOKEN", "8779271516:AAGYZnk5SkilyfPcRrJzkzRA1Y1C4anBiuY")
+BOT_TOKEN = os.getenv("BOT_TOKEN", "8851216228:AAFyUm-arqv2I7oKaVqBvRd0ZJGnOOTpz8I")
 ADMIN_IDS = {int(x) for x in os.getenv("ADMIN_IDS", "8759747461").split(",") if x.strip()}
-SUPPORT = "@Mormonsq"                                   # поддержка
+SUPPORT = "@VladkaSmyrfanka"                                   # поддержка
 PAY_LINK = os.getenv("PAY_LINK", "http://t.me/send?start=IVXbX0mcEeBt")   # счёт в Crypto Bot (ручное подтверждение)
-SHOP_NAME = "Dodo pizza"
+SHOP_NAME = "Sm Hosting"
 CURRENCY = "$"
 CRYPTO_TOKEN = os.getenv("CRYPTO_TOKEN", "")      # токен Crypto Pay (@CryptoBot)
 CRYPTO_TESTNET = os.getenv("CRYPTO_TESTNET", "0") == "1"   # 1 = тестовая сеть (@CryptoTestnetBot)
